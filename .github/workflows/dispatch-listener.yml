@@ -1,4 +1,3 @@
-# .github/workflows/dispatch-listener.yml
 name: Dispatch Listener
 
 on:
@@ -8,8 +7,9 @@ on:
 jobs:
   update-trigger:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Update trigger.txt
@@ -20,3 +20,6 @@ jobs:
           git add trigger.txt
           git commit -m "Triggered save from HTML"
           git push
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+
