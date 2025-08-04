@@ -675,14 +675,15 @@ document.getElementById("exportButton").addEventListener("click", function () {
 
 
 
-    <script>
-      function showSaveToast(message, success = true) {
-        const toast = document.querySelector(".save-toast");
-        toast.textContent = message;
-        toast.style.backgroundColor = success ? "#4caf50" : "#f44336";
-        toast.style.opacity = "1";
-        setTimeout(() => toast.style.opacity = "0", 3000);
-      }
+<script>
+  function showSaveToast(message, success = true) {
+    const toast = document.querySelector(".save-toast");
+    toast.textContent = message;
+    toast.style.backgroundColor = success ? "#4caf50" : "#f44336";
+    toast.style.opacity = "1";
+    setTimeout(() => toast.style.opacity = "0", 3000);
+  }
+</script>
 
 <script type="module">
   async function saveGridChanges() {
