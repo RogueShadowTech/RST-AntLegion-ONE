@@ -642,9 +642,7 @@ document.getElementById("exportButton").addEventListener("click", function () {
 </script>
 	
 <script>
-  document.getElementById('saveBtn').addEventListener('click', async () => {
-    try {
-      const response = await fetch('/.netlify/functions/trigger-save');
+  document.getElementById("saveBtn").addEventListener("click", saveGridChanges);
 
       if (response.ok) {
         const data = await response.json();
@@ -660,7 +658,22 @@ document.getElementById("exportButton").addEventListener("click", function () {
 </script>
 
 	
-    <div class="save-toast" style="..."></div>
+  <div class="save-toast" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+"></div>
+
+
 
     <script>
       function showSaveToast(message, success = true) {
