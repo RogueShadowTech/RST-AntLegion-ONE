@@ -659,5 +659,42 @@ document.getElementById("exportButton").addEventListener("click", function () {
   });
 </script>
 
+	
+    <div class="save-toast" style="..."></div>
+
+    <script>
+      function showSaveToast(message, success = true) {
+        const toast = document.querySelector(".save-toast");
+        toast.textContent = message;
+        toast.style.backgroundColor = success ? "#4caf50" : "#f44336";
+        toast.style.opacity = "1";
+        setTimeout(() => toast.style.opacity = "0", 3000);
+      }
+
+      async function saveGridChanges() {
+        try {
+          const res = await fetch("https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/dispatches", {
+            method: "POST",
+            headers: {
+              "Authorization": "token YOUR_PAT",
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ event_type: "trigger-action" })
+          });
+
+          if (res.ok) {
+            showSaveToast("✅ Grid Changes have been saved");
+          } else {
+            showSaveToast("⚠️ Save dispatch failed", false);
+          }
+        } catch (err) {
+          console.error(err);
+          showSaveToast("❌ Save error occurred", false);
+        }
+      }
+    </script>
+
+
 
 </div></body></html>
