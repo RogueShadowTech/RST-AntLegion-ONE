@@ -1,15 +1,22 @@
+# .github/workflows/dispatch-listener.yml
 name: Dispatch Listener
 
 on:
   repository_dispatch:
-    types: [save-html]
+    types: [trigger_save]
 
 jobs:
-  run-save:
+  update-trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Confirm trigger
-        run: echo "Workflow triggered by repository_dispatch:save-html"
+      - name: Update trigger.txt
+        run: |
+          echo "Save triggered at $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > trigger.txt
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add trigger.txt
+          git commit -m "Triggered save from HTML"
+          git push
