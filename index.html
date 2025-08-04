@@ -641,38 +641,43 @@ document.getElementById("exportButton").addEventListener("click", function () {
     e.dataTransfer.setData('text/html', cell.outerHTML);
   });
 </script>
-<script>
-const token = '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'; // Replace with your actual token
-const owner = 'RogueShadowTech';
-const repo = 'RST-AntLegion-ONE';
-const branch = 'main';
-const filePath = 'index.html';
+	
+<script type="module">
+  import { GITHUB_TOKEN } from './config.js';
 
-document.getElementById('saveBtn').addEventListener('click', async () => {
-  const newContent = document.documentElement.outerHTML;
+  const token = GITHUB_TOKEN;
+  const owner = 'RogueShadowTech';
+  const repo = 'RST-AntLegion-ONE';
+  const branch = 'main';
+  const filePath = 'index.html';
 
-  const getFileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
-    headers: { Authorization: `token ${token}` }
+  document.getElementById('saveBtn').addEventListener('click', async () => {
+    const newContent = document.documentElement.outerHTML;
+
+    const getFileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
+      headers: { Authorization: `token ${token}` }
+    });
+    const fileData = await getFileRes.json();
+
+    const commitRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Update via Save button',
+        content: btoa(unescape(encodeURIComponent(newContent))),
+        sha: fileData.sha
+      })
+    });
+
+    const result = await commitRes.json();
+    alert('Saved to Source!');
   });
-  const fileData = await getFileRes.json();
-
-  const commitRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `token ${token}`,
-	'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      message: 'Update via Save button',
-      content: btoa(unescape(encodeURIComponent(newContent))),
-      sha: fileData.sha
-    })
-  });
-
-  const result = await commitRes.json();
-  alert('Saved to Source!');
-});
 </script>
+
+
 
 
 
