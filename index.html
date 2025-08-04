@@ -642,7 +642,7 @@ document.getElementById("exportButton").addEventListener("click", function () {
   });
 </script>
 <script>
-const token = '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'; // Replace with your actual token
+const token = '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'; // Replace with your actual token
 const owner = 'RogueShadowTech';
 const repo = 'RST-AntLegion-ONE';
 const branch = 'main';
@@ -660,9 +660,7 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
-	Accept: 'application/vnd.github+json'
-
-      // 'Content-Type': 'application/json'
+	'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       message: 'Update via Save button',
@@ -672,7 +670,7 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
   });
 
   const result = await commitRes.json();
-  alert('Saved to GitHub!');
+  alert('Saved to Source!');
 });
 </script>
 
