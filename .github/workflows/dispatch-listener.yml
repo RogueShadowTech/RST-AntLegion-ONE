@@ -1,0 +1,15 @@
+name: Dispatch Listener
+
+on:
+  repository_dispatch:
+    types: [save-html]
+
+jobs:
+  run-save:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Confirm trigger
+        run: echo "Workflow triggered by repository_dispatch: save-html"
