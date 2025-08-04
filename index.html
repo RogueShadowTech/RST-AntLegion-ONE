@@ -81,6 +81,8 @@
 .cp-veryhigh { background-color: #DC143C !important; }
 </style><style type="text/css" id="operaUserStyle"></style></head>
 <body><button id="exportButton">Export HTML</button>
+<button id="saveBtn">Save Changes</button>
+
 
 <div style="margin-top: 20px; font-family: Arial, sans-serif; flipped;">
 <h3>  Legend </h3>
@@ -614,6 +616,7 @@ document.getElementById("exportButton").addEventListener("click", function () {
 });
 </script>
 
+//SCRIPT TO SAVE CHANGES TO GITHUB INDEX FILE//
 <script>
   grid.addEventListener('dblclick', function(e) {
     const cell = e.target.closest('.cell');
@@ -638,6 +641,39 @@ document.getElementById("exportButton").addEventListener("click", function () {
     e.dataTransfer.setData('text/html', cell.outerHTML);
   });
 </script>
+<script>
+const token = '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'; // Replace with your actual token
+const owner = 'RogueShadowTech';
+const repo = 'your-repo';
+const branch = 'main';
+const filePath = 'index.html';
+
+document.getElementById('saveBtn').addEventListener('click', async () => {
+  const newContent = document.documentElement.outerHTML;
+
+  const getFileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const fileData = await getFileRes.json();
+
+  const commitRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      message: 'Update via Save button',
+      content: btoa(unescape(encodeURIComponent(newContent))),
+      sha: fileData.sha
+    })
+  });
+
+  const result = await commitRes.json();
+  alert('Saved to GitHub!');
+});
+</script>
+
 
 
 </div></body></html>
