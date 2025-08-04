@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 exports.handler = async function (event, context) {
-  const GITHUB_TOKEN = process.env.GH_PAT;
+  const GITHUB_TOKEN = process.env.GH_TOKEN;
   const repoOwner = 'RogueShadowTech';
   const repoName = 'RST-AntLegion-ONE';
 
