@@ -684,29 +684,37 @@ document.getElementById("exportButton").addEventListener("click", function () {
         setTimeout(() => toast.style.opacity = "0", 3000);
       }
 
-      async function saveGridChanges() {
-        try {
-          const res = await fetch("https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/dispatches", {
-            method: "POST",
-            headers: {
-              "Authorization": "token YOUR_PAT",
-              "Accept": "application/vnd.github+json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ event_type: "trigger-action" })
-          });
+<script type="module">
+  async function saveGridChanges() {
+    try {
+      const res = await fetch("https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/dispatches", {
+        method: "POST",
+        headers: {
+          "Authorization": "token YOUR_PAT",
+          "Accept": "application/vnd.github+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ event_type: "trigger-action" })
+      });
 
-          if (res.ok) {
-            showSaveToast("✅ Grid Changes have been saved");
-          } else {
-            showSaveToast("⚠️ Save dispatch failed", false);
-          }
-        } catch (err) {
-          console.error(err);
-          showSaveToast("❌ Save error occurred", false);
-        }
+      if (res.ok) {
+        showSaveToast("✅ Grid Changes have been saved");
+      } else {
+        showSaveToast("⚠️ Save dispatch failed", false);
       }
-    </script>
+    } catch (err) {
+      console.error(err);
+      showSaveToast("❌ Save error occurred", false);
+    }
+  }
+
+  // 🔘 Optional: invoke the function here or attach to a click event
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    saveGridChanges();
+  });
+</script>
+
+
 
 
 
