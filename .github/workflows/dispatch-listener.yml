@@ -11,38 +11,37 @@ jobs:
       GH_PAT: ${{ secrets.YOUR_PAT }}
 
     steps:
-      - name: Checkout repo
+      - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Configure Git
+      - name: Set up Git
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          echo "✅ Git configured"
+          echo "✅ Git user configured"
 
-      - name: Verify token
+      - name: Confirm GH_PAT Presence
         run: |
           echo "${GH_PAT}" | grep -E "^gh[pus]_"
           if [ $? -ne 0 ]; then
-            echo "❌ GH_PAT is missing or invalid"
+            echo "❌ GH_PAT looks empty or malformed"
             exit 1
           fi
+          echo "✅ GH_PAT appears valid"
 
-      - name: Force trigger.txt update
+      - name: Update trigger.txt (force commit)
         run: |
-          echo "$(date) - $RANDOM" >> trigger.txt
+          echo "Save triggered at $(date -u +"%Y-%m-%dT%H:%M:%SZ") - $RANDOM" > trigger.txt
           git add trigger.txt
           git status
           git diff
 
-      - name: Commit changes
+      - name: Commit Changes
         run: |
-          git commit -m "Triggered update from dispatch"
-          echo "✅ Commit complete"
+          git commit -m "Triggered save from HTML"
+          echo "✅ Commit created"
 
-      - name: Push to GitHub
+      - name: Push Changes to GitHub
         run: |
           git remote -v
           git push --verbose https://x-access-token:${GH_PAT}@github.com/RogueShadowTech/RST-AntLegion-ONE.git
-
-
