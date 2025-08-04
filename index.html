@@ -652,14 +652,14 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
   const newContent = document.documentElement.outerHTML;
 
   const getFileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `token ${token}` }
   });
   const fileData = await getFileRes.json();
 
   const commitRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
     method: 'PUT',
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `token ${token}`,
 	'Content-Type': 'application/json'
     },
     body: JSON.stringify({
