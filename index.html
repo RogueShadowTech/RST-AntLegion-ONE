@@ -641,23 +641,7 @@ document.getElementById("exportButton").addEventListener("click", function () {
   });
 </script>
 	
-<script>
-  document.getElementById("saveBtn").addEventListener("click", saveGridChanges);
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('✅ Dispatch sent:', data.message);
-      } else {
-        const error = await response.json();
-        console.error('❌ Dispatch failed:', error.error);
-      }
-    } catch (err) {
-      console.error('⚠️ Network error:', err);
-    }
-  });
-</script>
-
-	
   <div class="save-toast" style="
   position: fixed;
   bottom: 20px;
