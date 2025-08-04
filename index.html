@@ -81,8 +81,7 @@
 .cp-veryhigh { background-color: #DC143C !important; }
 </style><style type="text/css" id="operaUserStyle"></style></head>
 <body><button id="exportButton">Export HTML</button>
-	
-<button onclick="sendTriggerSave()">💾 Save Grid State</button>
+<button id="saveBtn">Save Changes</button>
 
 <div style="margin-top: 20px; font-family: Arial, sans-serif; flipped;">
 <h3>  Legend </h3>
@@ -643,21 +642,21 @@ document.getElementById("exportButton").addEventListener("click", function () {
 </script>
 	
 <script>
-async function sendTriggerSave() {
-  try {
-    const response = await fetch('/.netlify/functions/trigger-save');
+  document.getElementById('saveBtn').addEventListener('click', async () => {
+    try {
+      const response = await fetch('/.netlify/functions/trigger-save');
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('✅', data.message);
-    } else {
-      const error = await response.json();
-      console.error('❌', error.error);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Dispatch sent:', data.message);
+      } else {
+        const error = await response.json();
+        console.error('❌ Dispatch failed:', error.error);
+      }
+    } catch (err) {
+      console.error('⚠️ Network error:', err);
     }
-  } catch (err) {
-    console.error('⚠️ Network error:', err);
-  }
-}
+  });
 </script>
 
 
