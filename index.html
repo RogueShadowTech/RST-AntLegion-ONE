@@ -660,7 +660,9 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
+	Accept: 'application/vnd.github+json'
+
+      // 'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       message: 'Update via Save button',
