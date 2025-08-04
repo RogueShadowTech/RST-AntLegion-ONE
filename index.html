@@ -1,0 +1,643 @@
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Alliance Grid Map</title>
+<style>
+	.cp-low { background-color: #008080 !important; }
+	.cp-mid { background-color: #F28C28 !important; }
+	.cp-high { background-color: #DC143C !important; }
+	.cp-veryhigh { background-color: #cf4a37 !important; }
+
+  body { font-family: Arial, sans-serif; }
+  .grid { 
+	display: grid; 
+	grid-template-columns: repeat(11, 50px); 
+	grid-template-rows: repeat(16, 50px); 
+	gap: 0; 
+	position: relative; 
+	direction: ltr; 
+	transform: rotateX(180deg);}
+  
+  .cell {
+    width: 50px; 
+	height: 50px;
+    border: 1px solid #ccc;
+    display: flex; 
+	align-items: center;
+	justify-content: center;
+    font-size: 10px; 
+	font-weight: bold;
+    position: relative;
+    cursor: move;
+	transform: none;
+  }
+  
+  .cell > div {
+  transform: rotateX(180deg);
+  }
+
+
+  .tooltip {
+    visibility: hidden;
+    background-color: #333; 
+	color: #fff;
+    text-align: left;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    left: 55px;
+    top: 1;
+    white-space: pre-line;
+    font-size: 10px;
+	transform: none;
+	z-index: 9999;
+  }
+  
+  .flipped {
+  transform: rotateX(180deg); /* cancels grid’s flip */
+  	/position: absolute;/ 
+	direction: ltr; 
+	}
+
+	.locked {
+	  box-sizing: border-box;
+	  border: 2px solid black;
+	  background-color: #6b1d8f;
+	  cursor: not-allowed;
+	}
+
+  .cell:hover .tooltip { visibility: visible; position: absolute; overflow: hidden;}
+  
+  .green { background-color: lightgreen; }
+  .red { background-color: lightcoral; }
+  .yellow { background-color: khaki; }
+  .empty { background-color: #f9f9f9; }
+
+</style>
+<style>
+.cp-new { background-color: #008000 !important; }
+.cp-low { background-color: #008080 !important; }
+.cp-mid { background-color: #F28C28 !important; }
+.cp-high { background-color: #cf4a37 !important; }
+.cp-veryhigh { background-color: #DC143C !important; }
+</style><style type="text/css" id="operaUserStyle"></style></head>
+<body><button id="exportButton">Export HTML</button>
+
+<div style="margin-top: 20px; font-family: Arial, sans-serif; flipped;">
+<h3>  Legend </h3>
+<ul style="list-style: none; padding: 0;">	
+<li><span style="display:inline-block;width:20px;height:20px;background-color:#008080;margin-right:10px;"></span>0–20,000,000 CP</li>
+<li><span style="display:inline-block;width:20px;height:20px;background-color:#F28C28;margin-right:10px;"></span>20,000,001–49,999,999 CP</li>
+<li><span style="display:inline-block;width:20px;height:20px;background-color:#cf4a37;margin-right:10px;"></span>50,000,000–84,999,999 CP</li>
+<li><span style="display:inline-block;width:20px;height:20px;background-color:#DC143C;margin-right:10px;"></span>85,000,000–200,000,000 CP</li>
+</ul>
+</div>
+
+
+<h2>Alliance Grid Map</h2>
+
+<div class="grid" id="grid">
+<div class="cell cp-new" data-x="9" data-y="4" data-locked="false" draggable="true"><div>Poppit</div><div class="tooltip">Name: Poppit
+CP: 
+Queen Lvl:
+Coordinates: x:6 y:5</div></div>
+<div class="cell cp-new" data-x="0" data-y="4" data-locked="false" draggable="true"><div>CHIP</div><div class="tooltip">Name: CHIP
+CP: 
+Queen Lvl:
+Coordinates: x:8 y:4</div></div>
+<div class="cell cp-new" data-x="5" data-y="4" data-locked="false" draggable="true"><div>Falcon</div><div class="tooltip">Name: Falconeri
+CP: 
+Queen Lvl:
+Coordinates: x:2 y:5</div></div>
+<div class="cell cp-new" data-x="9" data-y="8" data-locked="false" draggable="true"><div>LEONo</div><div class="tooltip">Name: LEONo
+CP: 24,558,384
+Queen Lvl:
+Coordinates: x:5 y:9</div></div>
+<div class="cell empty" data-x="14" data-y="9" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="8" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="11" data-y="3" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="13" data-y="5" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="6" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-mid" data-x="2" data-y="8" data-locked="false" draggable="true"><div>Kabosu</div><div class="tooltip">Name: Kabosu (Japanese Name)
+CP: 36,403,980
+Queen Lvl:
+Coordinates: x:9 y:8</div></div>
+<div class="cell cp-mid" data-x="6" data-y="0" data-locked="false" draggable="true"><div>Shanks</div><div class="tooltip">Name: Shanks
+CP: 33,188,060
+Queen Lvl:
+Coordinates: x:6 y:1</div></div>
+
+<div class="cell cp-new" data-x="7" data-y="6" data-locked="false" draggable="true"><div>Danun</div><div class="tooltip">Name: DanunaH
+CP: 
+Queen Lvl:
+Coordinates: x:3 y:7</div></div>
+<div class="cell cp-new" data-x="0" data-y="1" data-locked="false" draggable="true"><div>Andrei)</div><div class="tooltip">Name: Andrei)
+CP: 
+Queen Lvl:
+Coordinates: x:10 y:1</div></div>
+<div class="cell cp-new" data-x="4" data-y="9" data-locked="false" draggable="true"><div>Душа леса</div><div class="tooltip">Name: Душа леса
+CP: 
+Queen Lvl:
+Coordinates: x:10 y:9</div></div>
+<div class="cell cp-new" data-x="2" data-y="4" data-locked="false" draggable="true"><div>OpenDanger</div><div class="tooltip">Name: OpenDanger
+CP: 
+Queen Lvl:
+Coordinates: x:10 y:4</div></div>
+<div class="cell empty" data-x="13" data-y="8" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="11" data-y="2" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="2" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="7" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-low" data-x="6" data-y="8" data-locked="false" draggable="true"><div>Vic4Real</div><div class="tooltip">Name: Vic4Real
+CP: 13,123,103
+Queen Lvl:
+Coordinates: x:2 y:9</div></div>
+<div class="cell cp-high" data-x="4" data-y="4" data-locked="false" draggable="true"><div>Abouche</div><div class="tooltip">Name: Abouche
+CP: 50,936,971
+Queen Lvl:
+Coordinates: x:1 y:5</div></div>
+<div class="cell cp-mid" data-x="3" data-y="5" data-locked="false" draggable="true"><div>Vigorous</div><div class="tooltip">Name: VigorousGhost
+CP: 27,087,350
+Queen Lvl:
+Coordinates: x:11 y:5</div></div>
+
+<div class="cell cp-new" data-x="7" data-y="2" data-locked="false" draggable="true"><div>Madmax</div><div class="tooltip">Name: Madmaxfury
+CP: 
+Queen Lvl:
+Coordinates: x:4 y:3</div></div>
+<div class="cell cp-new" data-x="7" data-y="8" data-locked="false" draggable="true"><div>Poppit</div><div class="tooltip">Name: Poppit
+CP: 
+Queen Lvl:
+Coordinates: x:3 y:9</div></div>
+<div class="cell cp-new" data-x="5" data-y="9" data-locked="false" draggable="true"><div>JERALDCM</div><div class="tooltip">Name: JERALDCM
+CP: 
+Queen Lvl:
+Coordinates: x:11 y:9</div></div>
+<div class="cell empty" data-x="1" data-y="4" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="11" data-y="10" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="13" data-y="7" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="13" data-y="10" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="13" data-y="9" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="3" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-mid" data-x="0" data-y="6" data-locked="false" draggable="true"><div>TheBig</div><div class="tooltip">Name: TheBiggoron
+CP: 39,115,635
+Queen Lvl:
+Coordinates: x:7 y:6</div></div>
+<div class="cell cp-mid" data-x="4" data-y="6" data-locked="false" draggable="true"><div>Dinie</div><div class="tooltip">Name: DinieWinie87
+CP: 27,924,688
+Queen Lvl:
+Coordinates: x:11 y:6</div></div>
+
+<div class="cell empty" data-x="13" data-y="1" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="13" data-y="2" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="13" data-y="3" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="13" data-y="4" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="1" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="14" data-y="6" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="4" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="1" data-y="6" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="5" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="11" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="11" data-y="7" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+
+<div class="cell cp-low locked" data-x="2" data-y="3" data-locked="true" draggable="false"><div>Robin22</div><div class="tooltip">Name: Robin22
+CP: 6,352,305
+Queen Lvl:
+Coordinates: x:10 y:3</div></div>
+<div class="cell cp-low locked" data-x="7" data-y="1" data-locked="true" draggable="false"><div>2cents</div><div class="tooltip">Name: 2 cents worth
+CP: 13,955,919
+Queen Lvl:
+Coordinates: x:5 y:2</div></div>
+<div class="cell cp-low locked" data-x="4" data-y="8" data-locked="true" draggable="false"><div>2Brain</div><div class="tooltip">Name: 2 brain cells
+CP: 488,610
+Queen Lvl:
+Coordinates: x:11 y:8</div></div>
+<div class="cell empty" data-x="14" data-y="4" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="14" data-y="5" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell red locked" data-x="10" data-y="0" data-locked="true" draggable="false"><div class="flipped">Post</div></div>
+<div class="cell empty" data-x="14" data-y="7" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="14" data-y="8" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="9" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="12" data-y="10" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="14" data-y="11" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+
+<div class="cell cp-low locked" data-x="3" data-y="3" data-locked="true" draggable="false"><div>Pacoo2</div><div class="tooltip">Name: Pacoo2
+CP: 7,671,613
+Queen Lvl:
+Coordinates: x:11 y:3</div></div>
+<div class="cell cp-low locked" data-x="8" data-y="2" data-locked="true" draggable="false"><div>Jimbeii</div><div class="tooltip">Name: Jimbeii
+CP: 17,317,712
+Queen Lvl:
+Coordinates: x:5 y:3</div></div>
+<div class="cell empty" data-x="14" data-y="3" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="11" data-y="5" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="11" data-y="6" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="1" data-y="3" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="11" data-y="1" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp- locked" data-x="6" data-y="5" data-locked="true" draggable="false"><div> z </div><div class="tooltip">Name: 
+CP: 
+Queen Lvl:
+Coordinates: x:2 y:6</div></div>
+<div class="cell cp-high locked" data-x="7" data-y="3" data-locked="true" draggable="false"><div>Nami</div><div class="tooltip">Name: Nami
+CP: 56,408,095
+Queen Lvl:
+Coordinates: x:4 y:4</div></div>
+<div class="cell empty" data-x="11" data-y="11" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="14" data-y="10" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty locked" data-x="14" data-y="1" data-locked="true" draggable="false"><div class="tooltip"></div></div>
+<div class="cell empty locked" data-x="14" data-y="2" data-locked="true" draggable="false"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="7" data-y="10" data-locked="false" draggable="true"><div class="tooltip">Coords: x:8 y:11</div></div>
+<div class="cell empty" data-x="11" data-y="4" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-low locked" data-x="10" data-y="7" data-locked="true" draggable="false"><div>Whiskey</div><div class="tooltip">Name: Whiskey-Diva
+CP: 14,008,797
+Queen Lvl:
+Coordinates: x:6 y:8</div></div>
+<div class="cell cp-mid locked" data-x="6" data-y="4" data-locked="true" draggable="false"><div>Atonalsv</div><div class="tooltip">Name: Atonalsv
+CP: 36,701,717
+Queen Lvl:
+Coordinates: x:3 y:5</div></div>
+<div class="cell cp-new locked" data-x="5" data-y="6" data-locked="true" draggable="false"><div>Okhrynenko</div><div class="tooltip">Name: Okhrynenko
+CP: 
+Queen Lvl:
+Coordinates: x:1 y:7</div></div>
+<div class="cell cp-new locked" data-x="1" data-y="8" data-locked="true" draggable="false"><div>AnderXin</div><div class="tooltip">Name: AnderXin
+CP: 
+Queen Lvl:
+Coordinates: x:8 y:8</div></div>
+<div class="cell cp-mid locked" data-x="1" data-y="7" data-locked="true" draggable="false"><div>AlXimek</div><div class="tooltip">Name: AlXimek
+CP: 54,131,661
+Queen Lvl:
+Coordinates: x:8 y:7</div></div>
+<div class="cell empty" data-x="13" data-y="11" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-low locked" data-x="3" data-y="8" data-locked="true" draggable="false"><div>2opinions</div><div class="tooltip">Name: 2 opinions
+CP: 488,754
+Queen Lvl:
+Coordinates: x:10 y:8</div></div>
+<div class="cell cp-low locked" data-x="4" data-y="5" data-locked="true" draggable="false"><div>Jay's Mother</div><div class="tooltip">Name: Jay's Mother (Thai Name)
+CP: 19,435,841
+Queen Lvl:
+Coordinates: x:1 y:6</div></div>
+<div class="cell cp-mid locked" data-x="0" data-y="5" data-locked="true" draggable="false"><div>Futuro Fenix 53</div><div class="tooltip">Name: Futuro Fenix 53
+CP: 20,979,976
+Queen Lvl:
+Coordinates: x:8 y:5</div></div>
+<div class="cell RED locked" data-x="8" data-y="10" data-locked="true" draggable="false"><div class="flipped">Post</div><div class="tooltip">Coords: x:9 y:11</div></div>
+<div class="cell cp-mid locked" data-x="2" data-y="7" data-locked="true" draggable="false"><div>ChilL</div><div class="tooltip">Name: ChilL
+CP: 48,197,402
+Queen Lvl:
+Coordinates: x:9 y:7</div></div>
+<div class="cell cp-new locked" data-x="8" data-y="8" data-locked="true" draggable="false"><div>Laveau</div><div class="tooltip">Name: Laveau
+CP: 
+Queen Lvl:
+Coordinates: x:4 y:9</div></div>
+<div class="cell cp-mid locked" data-x="10" data-y="6" data-locked="true" draggable="false"><div>Giovanni.11</div><div class="tooltip">Name: Giovanni.11
+CP: 29,984,144
+Queen Lvl:
+Coordinates: x:6 y:7</div></div>
+<div class="cell cp-high" data-x="4" data-y="0" data-locked="false" draggable="true"><div>Kitty</div><div class="tooltip">Name: Kittyaki
+CP: 65,270,187
+Queen Lvl:
+Coordinates: x:4 y:1</div></div>
+<div class="cell cp-new locked" data-x="4" data-y="7" data-locked="true" draggable="false"><div>abdida</div><div class="tooltip">Name: abdidabudi
+CP: 
+Queen Lvl:
+Coordinates: x:11 y:7</div></div>
+<div class="cell red locked" data-x="10" data-y="10" data-locked="true" draggable="false"><div class="flipped">Post</div></div>
+<div class="cell cp-low locked" data-x="5" data-y="8" data-locked="true" draggable="false"><div>2Problems</div><div class="tooltip">Name: 2 problems
+CP: 489,066
+Queen Lvl:
+Coordinates: x:1 y:9</div></div>
+<div class="cell cp-new locked" data-x="2" data-y="9" data-locked="true" draggable="false"><div>Goom76</div><div class="tooltip">Name: Goom76
+CP: 
+Queen Lvl:
+Coordinates: x:8 y:9</div></div>
+<div class="cell cp-mid locked" data-x="1" data-y="6" data-locked="true" draggable="false"><div>HeiBe</div><div class="tooltip">Name: HeiBeZitrone
+CP: 20,958,114
+Queen Lvl:
+Coordinates: x:8 y:6</div></div>
+<div class="cell cp-low locked" data-x="0" data-y="7" data-locked="true" draggable="false"><div>Speedd</div><div class="tooltip">Name: Speeddaddy
+CP: 19,806,740
+Queen Lvl:
+Coordinates: x:7 y:7</div></div>
+<div class="cell cp-veryhigh locked" data-x="9" data-y="0" data-locked="true" draggable="false"><div>Some People's Kids</div><div class="tooltip">Name: Some People's Kids
+CP: 97,391,322
+Queen Lvl:
+Coordinates: x:9 y:1</div></div>
+<div class="cell empty locked" data-x="8" data-y="9" data-locked="true" draggable="false"><div class="tooltip">Coords: x:9 y:10</div></div>
+<div class="cell cp-high locked" data-x="4" data-y="2" data-locked="true" draggable="false"><div>Wander</div><div class="tooltip">Name: Wandering Ant
+CP: 54,469,046
+Queen Lvl:
+Coordinates: x:1 y:3</div></div>
+<div class="cell cp-new locked" data-x="3" data-y="9" data-locked="true" draggable="false"><div>Gafe</div><div class="tooltip">Name: Gafe
+CP: 
+Queen Lvl:
+Coordinates: x:9 y:9</div></div>
+<div class="cell cp-mid locked" data-x="10" data-y="5" data-locked="true" draggable="false"><div>Raidi</div><div class="tooltip">Name: Raidi 2025
+CP: 32,026,596
+Queen Lvl:
+Coordinates: x:6 y:6</div></div>
+<div class="cell cp-new locked" data-x="6" data-y="6" data-locked="true" draggable="false"><div>Rojas_28</div><div class="tooltip">Name: Rojas_28
+CP: 
+Queen Lvl:
+Coordinates: x:2 y:7</div></div>
+<div class="cell cp-mid locked" data-x="6" data-y="3" data-locked="true" draggable="false"><div>Diana</div><div class="tooltip">Name: Diana Prince
+CP: 32,405,377
+Queen Lvl:
+Coordinates: x:3 y:4</div></div>
+<div class="cell cp-mid locked" data-x="8" data-y="5" data-locked="true" draggable="false"><div>Crush97</div><div class="tooltip">Name: Crush97
+CP: 
+Queen Lvl:
+Coordinates: x:4 y:6</div></div>
+<div class="cell cp-low locked" data-x="0" data-y="9" data-locked="true" draggable="false"><div> Meme </div><div class="tooltip">Name: Meme
+CP: 
+Queen Lvl:
+Coordinates: x:7 y:9</div></div>
+<div class="cell cp-mid locked" data-x="10" data-y="2" data-locked="true" draggable="false"><div>Shado27</div><div class="tooltip">Name: Shado27
+CP: 30,486,942
+Queen Lvl:
+Coordinates: x:7 y:3</div></div>
+<div class="cell cp-mid locked" data-x="3" data-y="6" data-locked="true" draggable="false"><div>Goose</div><div class="tooltip">Name: Goose_N3ck
+CP: 33,030,072
+Queen Lvl:
+Coordinates: x:10 y:6</div></div>
+<div class="cell empty locked" data-x="10" data-y="9" data-locked="true" draggable="false"><div class="tooltip">Coords: x:11 y:10</div></div>
+<div class="cell cp-mid locked" data-x="2" data-y="2" data-locked="true" draggable="false"><div>Ghost</div><div class="tooltip">Name: The Ghost Sparta
+CP: 47,244,114
+Queen Lvl:
+Coordinates: x:10 y:2</div></div>
+<div class="cell cp-mid locked" data-x="5" data-y="2" data-locked="true" draggable="false"><div>LordHugo</div><div class="tooltip">Name: LordHugo
+CP: 47,754,141
+Queen Lvl:
+Coordinates: x:2 y:3</div></div>
+<div class="cell yellow locked" data-x="9" data-y="9" data-locked="true" draggable="false"><div class="flipped">RSS</div></div>
+<div class="cell cp-high locked" data-x="3" data-y="1" data-locked="true" draggable="false"><div>S455</div><div class="tooltip">Name: S455
+CP: 78,278,330
+Queen Lvl:
+Coordinates: x:1 y:2</div></div>
+<div class="cell cp-mid locked" data-x="7" data-y="0" data-locked="true" draggable="false"><div>Kpop</div><div class="tooltip">Name: Kpop&amp;Anime
+CP: 33,289,509
+Queen Lvl:
+Coordinates: x:7 y:1</div></div>
+<div class="cell cp-new locked" data-x="5" data-y="3" data-locked="true" draggable="false"><div>Juan Carlos</div> <div class="tooltip">Name: Juan Carlos
+CP: 
+Queen Lvl:
+Coordinates: x:2 y:4</div></div>
+<div class="cell cp-mid locked" data-x="1" data-y="3" data-locked="true" draggable="false"><div>Cold Wind</div><div class="tooltip">Name: Cold Wind (Chinese Name)
+CP: 36,334,017
+Queen Lvl:
+Coordinates: x:9 y:3</div></div>
+<div class="cell cp-new locked" data-x="9" data-y="7" data-locked="true" draggable="false"><div>Coulon</div><div class="tooltip">Name: Coulonerc2 
+CP: 
+Queen Lvl:
+Coordinates: x:5 y:8</div></div>
+<div class="cell cp-low locked" data-x="8" data-y="3" data-locked="true" draggable="false"><div>Dee</div><div class="tooltip">Name: Dee
+CP: 16,515,623
+Queen Lvl:
+Coordinates: x:5 y:4</div></div>
+<div class="cell cp-mid locked" data-x="0" data-y="2" data-locked="true" draggable="false"><div>Yurielx</div><div class="tooltip">Name: Yurielx
+CP: 44,854,230
+Queen Lvl:
+Coordinates: x:8 y:2</div></div>
+<div class="cell empty locked" data-x="4" data-y="10" data-locked="true" draggable="false"><div class="tooltip">Coords: x:5 y:11</div></div>
+<div class="cell cp-mid locked" data-x="0" data-y="3" data-locked="true" draggable="false"><div>Bubble</div><div class="tooltip">Name: BubbleQueen24
+CP: 37,758,405
+Queen Lvl:
+Coordinates: x:8 y:3</div></div>
+<div class="cell cp-mid locked" data-x="2" data-y="5" data-locked="true" draggable="false"><div>Francium</div><div class="tooltip">Name: Francium (Japanese Name)
+CP: 37,539,589
+Queen Lvl:
+Coordinates: x:10 y:5</div></div>
+<div class="cell red locked" data-x="0" data-y="0" data-locked="true" draggable="false"><div class="flipped">BASE</div></div>
+<div class="cell cp-mid locked" data-x="9" data-y="2" data-locked="true" draggable="false"><div>Dodger</div><div class="tooltip">Name: DodgerGal
+CP: 46,843,691
+Queen Lvl:
+Coordinates: x:6 y:3</div></div>
+<div class="cell cp-new locked" data-x="3" data-y="2" data-locked="true" draggable="false"><div>Vo D Tuu</div><div class="tooltip">Name: Vo D Tuu
+CP: 
+Queen Lvl:
+Coordinates: x:11 y:2</div></div>
+<div class="cell cp-mid locked" data-x="10" data-y="3" data-locked="true" draggable="false"><div>RED Baron</div><div class="tooltip">Name: RED Baron
+CP: 44,573,105
+Queen Lvl:
+Coordinates: x:7 y:4</div></div>
+<div class="cell cp-mid locked" data-x="9" data-y="6" data-locked="true" draggable="false"><div>Pimpzoj</div><div class="tooltip">Name: Pimpzoj
+CP: 32,339,521
+Queen Lvl:
+Coordinates: x:5 y:7</div></div>
+<div class="cell cp-new locked" data-x="5" data-y="7" data-locked="true" draggable="false"><div>•Gaia•</div><div class="tooltip">Name: •Gaia•
+CP: 
+Queen Lvl:
+Coordinates: x:1 y:8</div></div>
+<div class="cell cp-mid locked" data-x="3" data-y="4" data-locked="true" draggable="false"><div>AdSaMo</div><div class="tooltip">Name: AdSaMo
+CP: 35,948,045
+Queen Lvl:
+Coordinates: x:11 y:4</div></div>
+<div class="cell cp-mid locked" data-x="8" data-y="0" data-locked="true" draggable="false"><div>Bad Dreamz</div><div class="tooltip">Name: Bad Dreamz
+CP: 26,824,136
+Queen Lvl:
+Coordinates: x:8 y:1</div></div>
+<div class="cell red locked" data-x="0" data-y="10" data-locked="true" draggable="false"><div class="flipped">Post</div></div>
+<div class="cell cp-mid locked" data-x="4" data-y="3" data-locked="true" draggable="false"><div>Bobbo</div><div class="tooltip">Name: BobboMan3000
+CP: 38,632,483
+Queen Lvl:
+Coordinates: x:1 y:4</div></div>
+<div class="cell cp-new locked" data-x="3" data-y="7" data-locked="true" draggable="false"><div>Loerdende</div><div class="tooltip">Name: Loerdende
+CP: 
+Queen Lvl:
+Coordinates: x:10 y:7</div></div>
+<div class="cell cp-high locked" data-x="2" data-y="1" data-locked="true" draggable="false"><div>Snufkin</div><div class="tooltip">Name: Snufkin
+CP: 63,839,336
+Queen Lvl:
+Coordinates: x:11 y:1</div></div>
+<div class="cell cp-high locked" data-x="1" data-y="2" data-locked="true" draggable="false"><div>Breezy</div><div class="tooltip">Name: Breezy
+CP: 53,018,146
+Queen Lvl:
+Coordinates: x:9 y:2</div></div>
+<div class="cell cp-high locked" data-x="4" data-y="1" data-locked="true" draggable="false"><div>Black Heart</div><div class="tooltip">Name: Black Heart
+CP: 56,894,912
+Queen Lvl:
+Coordinates: x:2 y:2</div></div>
+<div class="cell RED locked" data-x="9" data-y="10" data-locked="true" draggable="false"><div class="flipped">Post</div><div class="tooltip">Coords: x:10 y:11</div></div>
+<div class="cell cp-new locked" data-x="10" data-y="8" data-locked="true" draggable="false"><div>¿LOST?</div><div class="tooltip">Name: ¿LOST? 
+CP: 
+Queen Lvl:
+Coordinates: x:6 y:9</div></div>
+<div class="cell empty" data-x="11" data-y="8" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-low locked" data-x="5" data-y="1" data-locked="true" draggable="false"><div>Turbo</div><div class="tooltip">Name: Turbo Charged Ant
+CP: 11,193,522
+Queen Lvl:
+Coordinates: x:3 y:2</div></div>
+<div class="cell cp-mid locked" data-x="1" data-y="5" data-locked="true" draggable="false"><div>Terote</div><div class="tooltip">Name: Terote
+CP: 35,184,486
+Queen Lvl:
+Coordinates: x:9 y:5</div></div>
+<div class="cell empty locked" data-x="6" data-y="9" data-locked="true" draggable="false"><div class="tooltip">Coords: x:7 y:10</div></div>
+<div class="cell cp-high locked" data-x="6" data-y="1" data-locked="true" draggable="false"><div>Joy Boy</div><div class="tooltip">Name: Joy Boy
+CP: 52,715,246
+Queen Lvl:
+Coordinates: x:4 y:2</div></div>
+<div class="cell cp-high locked" data-x="2" data-y="0" data-locked="true" draggable="false"><div>Jimboi</div><div class="tooltip">Name: Jimboi
+CP: 54,069,394
+Queen Lvl:
+Coordinates: x:2 y:1</div></div>
+<div class="cell green locked" data-x="5" data-y="5" data-locked="true" draggable="false"><div class="flipped">POND</div></div>
+<div class="cell cp-high locked" data-x="5" data-y="0" data-locked="true" draggable="false"><div>Rorona</div><div class="tooltip">Name: Rorona
+CP: 70,669,330
+Queen Lvl:
+Coordinates: x:5 y:1</div></div>
+<div class="cell cp-new locked" data-x="7" data-y="4" data-locked="true" draggable="false"><div>Alestyna</div><div class="tooltip">Name: Alestyna
+CP: 
+Queen Lvl:
+Coordinates: x:4 y:5</div></div>
+<div class="cell cp-mid locked" data-x="2" data-y="6" data-locked="true" draggable="false"><div>Hamipan</div><div class="tooltip">Name: Hamipan
+CP: 28,850,859
+Queen Lvl:
+Coordinates: x:9 y:6</div></div>
+<div class="cell cp-mid locked" data-x="1" data-y="4" data-locked="true" draggable="false"><div>Svet</div><div class="tooltip">Name: Svet
+CP: 48,903,318
+Queen Lvl:
+Coordinates: x:9 y:4</div></div>
+<div class="cell empty" data-x="1" data-y="11" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-mid locked" data-x="9" data-y="3" data-locked="true" draggable="false"><div>MrLee</div><div class="tooltip">Name: MrLeeMac
+CP: 43,085,183
+Queen Lvl:
+Coordinates: x:6 y:4</div></div>
+<div class="cell cp-mid locked" data-x="8" data-y="7" data-locked="true" draggable="false"><div>MsTee</div><div class="tooltip">Name: MsTeeMac
+CP: 
+Queen Lvl:
+Coordinates: x:4 y:8</div></div>
+<div class="cell empty locked" data-x="3" data-y="10" data-locked="true" draggable="false"><div class="tooltip">Coords: x:4 y:11</div></div>
+<div class="cell cp-high locked" data-x="10" data-y="1" data-locked="true" draggable="false"><div>TonyWo</div><div class="tooltip">Name: TonyWoodsome
+CP: 60,454,901
+Queen Lvl:
+Coordinates: x:7 y:2</div></div>
+<div class="cell cp-mid" data-x="7" data-y="5" data-locked="false" draggable="true"><div>Nikcj214</div><div class="tooltip">Name: Nikcj214
+CP: 34,029,574
+Queen Lvl:
+Coordinates: x:3 y:6</div></div>
+<div class="cell cp-veryhigh locked" data-x="3" data-y="0" data-locked="true" draggable="false"><div>Rogue</div><div class="tooltip">Name: RogueSandwich
+CP: 164,909,173
+Queen Lvl:
+Coordinates: x:3 y:1</div></div>
+<div class="cell cp-veryhigh locked" data-x="1" data-y="0" data-locked="true" draggable="false" style=".cp-veryhigh"><div>Straw</div><div class="tooltip">Name: Straw Hat Luffy
+CP: 123,537,148
+Queen Lvl:
+Coordinates: x:1 y:1</div></div>
+<div class="cell cp-high locked" data-x="6" data-y="2" data-locked="true" draggable="false"><div>Leah</div><div class="tooltip">Name: Leah
+CP: 52,065,850
+Queen Lvl:
+Coordinates: x:3 y:3</div></div>
+<div class="cell cp-mid locked" data-x="8" data-y="1" data-locked="true" draggable="false"><div>BoaHan</div><div class="tooltip">Name: BoaHancok
+CP: 29,602,159
+Queen Lvl:
+Coordinates: x:6 y:2</div></div>
+<div class="cell cp-new locked" data-x="9" data-y="5" data-locked="true" draggable="false"><div>Kolyam</div><div class="tooltip">Name: Kolyamba45
+CP: 
+Queen Lvl:
+Coordinates: x:5 y:6</div></div>
+<div class="cell cp-mid locked" data-x="10" data-y="4" data-locked="true" draggable="false"><div>Deaths</div><div class="tooltip">Name: Deaths-StarWalker
+CP: 49,434,394
+Queen Lvl:
+Coordinates: x:7 y:5</div></div>
+<div class="cell empty" data-x="1" data-y="1" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="7" data-y="9" data-locked="false" draggable="true"><div class="tooltip">Coords: x:8 y:10</div></div>
+<div class="cell empty" data-x="6" data-y="10" data-locked="false" draggable="true"><div class="tooltip">Coords: x:7 y:11</div></div>
+<div class="cell empty" data-x="1" data-y="10" data-locked="false" draggable="true"><div class="tooltip">Coords: x:2 y:11</div></div>
+<div class="cell empty" data-x="1" data-y="5" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="5" data-y="10" data-locked="false" draggable="true"><div class="tooltip">Coords: x:6 y:11</div></div>
+<div class="cell empty" data-x="1" data-y="7" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="1" data-y="8" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="1" data-y="9" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="1" data-y="10" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell empty" data-x="2" data-y="10" data-locked="false" draggable="true"><div class="tooltip">Coords: x:3 y:11</div></div>
+
+<div class="cell yellow" data-x="1" data-y="9" data-locked="false" draggable="true"><div class="flipped">RSS</div></div>
+<div class="cell empty" data-x="1" data-y="2" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-" data-x="6" data-y="7" data-locked="false" draggable="true"><div> z </div><div class="tooltip">Name: 
+CP: 16,005,740
+Queen Lvl:
+Coordinates: x:2 y:8</div></div>
+<div class="cell cp-" data-x="7" data-y="7" data-locked="false" draggable="true"><div> z </div><div class="tooltip">Name: 
+CP: 10,358,531
+Queen Lvl:
+Coordinates: x:3 y:8</div></div>
+<div class="cell cp-" data-x="8" data-y="4" data-locked="false" draggable="true"><div> z </div><div class="tooltip">Name: 
+CP: 
+Queen Lvl:
+Coordinates: x:5 y:5</div></div>
+<div class="cell cp-" data-x="8" data-y="6" data-locked="false" draggable="true"><div> z </div><div class="tooltip">Name: 
+CP: 26,386,222
+Queen Lvl:
+Coordinates: x:4 y:7</div></div>
+<div class="cell yellow" data-x="1" data-y="1" data-locked="false" draggable="true"><div class="flipped">RSS</div></div>
+<div class="cell empty" data-x="11" data-y="9" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+<div class="cell cp-" data-x="0" data-y="8" data-locked="false" draggable="true"><div> z </div><div class="tooltip">Name: 
+CP: 
+Queen Lvl:
+Coordinates: x:7 y:8</div></div>
+<div class="cell yellow" data-x="9" data-y="1" data-locked="false" draggable="true"><div class="flipped">RSS</div></div>
+<div class="cell empty" data-x="13" data-y="6" data-locked="false" draggable="true"><div class="tooltip"></div></div>
+
+<script>
+const grid = document.getElementById('grid');
+let dragSrcEl = null;
+
+grid.addEventListener('dragstart', function(e) {
+  if (e.target.classList.contains('cell')) {
+    dragSrcEl = e.target;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', e.target.outerHTML);
+  }
+});
+
+grid.addEventListener('dragover', function(e) {
+  if (e.preventDefault) e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  return false;
+});
+
+grid.addEventListener('drop', function(e) {
+  if (e.stopPropagation) e.stopPropagation();
+  if (dragSrcEl !== e.target && e.target.classList.contains('cell')) {
+    const temp = dragSrcEl.outerHTML;
+    dragSrcEl.outerHTML = e.target.outerHTML;
+    e.target.outerHTML = temp;
+  }
+  return false;
+});
+</script>
+<script>
+document.getElementById("exportButton").addEventListener("click", function () {
+    const blob = new Blob([document.documentElement.outerHTML], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "exported_grid.html";
+    a.click();
+});
+</script>
+
+<script>
+  grid.addEventListener('dblclick', function(e) {
+    const cell = e.target.closest('.cell');
+    if (!cell) return;
+
+    const isLocked = cell.getAttribute('data-locked') === 'true';
+
+    // Toggle locked state
+    cell.setAttribute('data-locked', isLocked ? 'false' : 'true');
+    cell.classList.toggle('locked', !isLocked);
+    cell.setAttribute('draggable', isLocked ? 'true' : 'false');
+  });
+
+  grid.addEventListener('dragstart', function(e) {
+    const cell = e.target.closest('.cell');
+    if (cell && cell.getAttribute('data-locked') === 'true') {
+      e.preventDefault();
+      return;
+    }
+    dragSrcEl = cell;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', cell.outerHTML);
+  });
+</script>
+
+
+</div></body></html>
