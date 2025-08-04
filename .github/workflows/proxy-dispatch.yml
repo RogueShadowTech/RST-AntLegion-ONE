@@ -1,0 +1,19 @@
+name: Proxy Dispatch Trigger
+
+on:
+  push:
+    paths:
+      - trigger.txt
+
+jobs:
+  trigger-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository_dispatch event
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.X_GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/dispatches \
+            -d '{"event_type":"save-html"}'
+
