@@ -1,0 +1,37 @@
+name: Update HTML via Token
+
+on:
+  workflow_dispatch: # Allows you to trigger it manually from GitHub's Actions tab
+
+jobs:
+  commit-html:
+    runs-on: ubuntu-latest
+    env:
+      TOKEN: ${{ secrets.X_GITHUB_TOKEN }} # Pulls from your repository secret
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Base64-encode index.html
+        id: encode
+        run: |
+          CONTENT=$(openssl base64 -A < index.html)
+          echo "content=$CONTENT" >> $GITHUB_OUTPUT
+
+      - name: Get file SHA
+        id: get_sha
+        run: |
+          SHA=$(curl -s \
+            -H "Authorization: token $TOKEN" \
+            https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/contents/index.html \
+            | jq -r '.sha')
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+
+      - name: Commit updated HTML file
+        run: |
+          curl -X PUT \
+            -H "Authorization: token $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"message\":\"Updated via GitHub Action\",\"content\":\"${{ steps.encode.outputs.content }}\",\"sha\":\"${{ steps.get_sha.outputs.sha }}\"}" \
+            https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/contents/index.html
