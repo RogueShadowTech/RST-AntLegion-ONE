@@ -644,22 +644,27 @@ document.getElementById("exportButton").addEventListener("click", function () {
 	
 <script>
   document.getElementById('saveBtn').addEventListener('click', async () => {
-    const response = await fetch('https://your-proxy-server.com/trigger-workflow', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/dispatches", {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github+json",
+        "Authorization": "Bearer YOUR_PAT" // 🔐 Still needed, but can be rotated and scoped
+      },
       body: JSON.stringify({
-        owner: 'RogueShadowTech',
-        repo: 'RST-AntLegion-ONE',
-        workflow_id: 'update-html.yml', // or use the workflow file name
-        ref: 'main'
+        event_type: "trigger_save"
       })
     });
 
-    const result = await response.json();
-    alert('Workflow triggered!');
-    console.log(result);
+    if (response.ok) {
+      alert("Save triggered!");
+    } else {
+      alert("Failed to trigger save.");
+      console.error(await response.text());
+    }
   });
 </script>
+
+
 
 
 
