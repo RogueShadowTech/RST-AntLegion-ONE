@@ -14,16 +14,35 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set Git config
+      - name: Configure Git
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
+          echo "✅ Git configured"
 
-      - name: Trigger commit
+      - name: Verify token
         run: |
-          echo "$(date)" >> trigger.txt
+          echo "${GH_PAT}" | grep -E "^gh[pus]_"
+          if [ $? -ne 0 ]; then
+            echo "❌ GH_PAT is missing or invalid"
+            exit 1
+          fi
+
+      - name: Force trigger.txt update
+        run: |
+          echo "$(date) - $RANDOM" >> trigger.txt
           git add trigger.txt
-          git commit -m "Triggered save from HTML"
-          git push https://x-access-token:${GH_PAT}@github.com/RogueShadowTech/RST-AntLegion-ONE.git
+          git status
+          git diff
+
+      - name: Commit changes
+        run: |
+          git commit -m "Triggered update from dispatch"
+          echo "✅ Commit complete"
+
+      - name: Push to GitHub
+        run: |
+          git remote -v
+          git push --verbose https://x-access-token:${GH_PAT}@github.com/RogueShadowTech/RST-AntLegion-ONE.git
 
 
