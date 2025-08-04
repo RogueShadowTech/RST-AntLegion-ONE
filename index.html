@@ -683,7 +683,7 @@ document.getElementById("exportButton").addEventListener("click", function () {
         headers: {
           "Authorization": "token YOUR_PAT",
           "Accept": "application/vnd.github+json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.github.v3+json"
         },
         body: JSON.stringify({ event_type: "trigger-action" })
       });
