@@ -681,12 +681,16 @@ document.getElementById("exportButton").addEventListener("click", function () {
       const res = await fetch("https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/dispatches", {
         method: "POST",
         headers: {
-          "Authorization": "token YOUR_PAT",
+          "Authorization": "token GH_PAT",
           "Accept": "application/vnd.github+json",
           "Content-Type": "application/vnd.github.v3+json"
         },
-        body: JSON.stringify({ event_type: "trigger-action" })
-      });
+	body: JSON.stringify({
+	  event_type: "trigger-action",
+	  client_payload: {
+	    targets: ["save-html", "updateHtml"]
+	  }
+	})
 
       if (res.ok) {
         showSaveToast("✅ Grid Changes have been saved");
