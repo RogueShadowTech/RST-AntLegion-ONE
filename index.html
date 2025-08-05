@@ -36,6 +36,13 @@
 	  justify-content: center;
 	  transform: rotateX(180deg); 
 	}
+
+	<div id="saveToast" style="margin-top: 10px; font-weight: bold;"></div>
+
+	function showSaveToast(message, success = true) {
+	  const toastEl = document.getElementById('saveToast');
+	  if (toastEl) toastEl.textContent = message;
+	}
 	
   .cell {
     width: 50px; 
