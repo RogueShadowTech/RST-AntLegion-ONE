@@ -17,10 +17,26 @@
 	direction: ltr; 
 	transform: rotateX(180deg);}
 
-.save-toast {
-  transform: none !important;
-}
 
+  .save-toast {
+  div class="save-toast" style="
+	  position: relative;
+	  bottom: 20px;
+	  right: 20px;
+	  background-color: #4caf50;
+	  color: white;
+	  padding: 10px 20px;
+	  border-radius: 5px;
+	  opacity: 0;
+	  transition: opacity 0.5s ease;
+	  z-index: 1000;
+	  font-family: Arial, sans-serif;
+	  font-size: 12px;
+	  align-items: center;
+	  justify-content: center;
+	  transform: rotateX(180deg); 
+	}
+	
   .cell {
     width: 50px; 
 	height: 50px;
@@ -32,7 +48,7 @@
 	font-weight: bold;
     position: relative;
     cursor: move;
-	transform: none;
+	transform: none !important;
   }
   
   .cell > div {
@@ -646,22 +662,6 @@ document.getElementById("exportButton").addEventListener("click", function () {
   });
 </script>
 	
-
-  <div class="save-toast" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: 1000;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  transform: rotateX(180deg);
-"></div>
 
 
 
