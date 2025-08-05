@@ -13,4 +13,5 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
           -H "Accept: application/vnd.github+json" \
           -H "Content-Type: application/json" \
-          -d '{"event_type":"trigger-action","client_payload":{"targets":["save-html","updateHtml"]}}'
+          -d '{"event_type":"trigger-action","client_payload":{"targets":["save-html","updateHtml"],"branch":"main"}}'
+
