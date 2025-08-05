@@ -31,10 +31,13 @@ jobs:
 
       - name: Update trigger.txt (force commit)
         run: |
-          echo "Save triggered at $(date -u +"%Y-%m-%dT%H:%M:%SZ") - $RANDOM" > trigger.txt
+          timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "Save triggered at $timestamp - $RANDOM" > trigger.txt
           git add trigger.txt
           git status
           git diff
+
+
 
       - name: Commit Changes
         run: |
