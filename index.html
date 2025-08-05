@@ -681,7 +681,7 @@ document.getElementById("exportButton").addEventListener("click", function () {
       const res = await fetch("https://api.github.com/repos/RogueShadowTech/RST-AntLegion-ONE/dispatches", {
         method: "POST",
         headers: {
-          "Authorization": "token GH_PAT",
+          "Authorization": "Bearer GH_PAT",
           "Accept": "application/vnd.github+json",
           "Content-Type": "application/vnd.github.v3+json"
         },
