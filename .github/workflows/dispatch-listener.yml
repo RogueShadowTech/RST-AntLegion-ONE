@@ -2,7 +2,7 @@ name: Dispatch Listener
 
 on:
   repository_dispatch:
-    types: [trigger-action, updateHtml]
+    types: [trigger-action, updateHtml, save-html]
 
 jobs:
   listener:
