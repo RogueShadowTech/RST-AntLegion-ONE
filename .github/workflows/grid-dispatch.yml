@@ -13,4 +13,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Confirm Dispatch Received
-        run: echo "Received trigger: ${{ github.event.inputs.triggerName }}
+        run: |
+          echo "Received trigger: ${{ github.event.inputs.triggerName }}"
