@@ -2,13 +2,13 @@ name: Dispatch Listener
 
 on:
   repository_dispatch:
-    types: [trigger-action]
+    types: [trigger-action, updateHtml]
 
 jobs:
   listener:
     runs-on: ubuntu-latest
     env:
-      GH_PAT: ${{ secrets.YOUR_PAT }}
+      GH_PAT: ${{ secrets.GH_PAT }}
 
     steps:
       - name: Checkout Repo
