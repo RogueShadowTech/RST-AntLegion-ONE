@@ -6,7 +6,7 @@ on:
 on:
   workflow_dispatch:  # Manual trigger from GitHub Actions tab
   repository_dispatch:  # External trigger via API call
-    types: [updateHtml]
+    types: [updateHtml, save-html]
 
 jobs:
   commit-html:
