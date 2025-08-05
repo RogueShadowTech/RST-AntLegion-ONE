@@ -3,6 +3,11 @@ name: Update HTML via Token
 on:
   workflow_dispatch: # Allows you to trigger it manually from GitHub's Actions tab
 
+on:
+  workflow_dispatch:  # Manual trigger from GitHub Actions tab
+  repository_dispatch:  # External trigger via API call
+    types: [updateHtml]
+
 jobs:
   commit-html:
     runs-on: ubuntu-latest
